@@ -1,56 +1,56 @@
 import React, { useState } from 'react';
 
 const Todolist = () => {
-  const [task, settask] = useState('');
+  const [task, setTask] = useState('');
   const [addTask, setAddTask] = useState([]);
-  const [taskCompleted, setTaskCompeletd] = useState(false);
-  const handelTask = (e) => {
-    e.preventDefault();
-    settask(e.target.value);
+  const [taskCompleted, setTaskCompleted] = useState(false);
+
+  const handleTaskChange = (e) => {
+    setTask(e.target.value);
     console.log(e.target.value);
   };
+
   const submitTask = () => {
-    setAddTask([...addTask, task]);
-    // console.log('this is task', task)
+    setAddTask([...addTask, { task, id: addTask.length }]);
+    setTask('');
   };
-  const handelTaskCompleted = () => {
-    setTaskCompeletd(true);
+
+  const handleTaskCompleted = () => {
+    setTaskCompleted(true);
     console.log('1', taskCompleted);
   };
-  const handelRemoveTask = (id) => {
+
+  const handleRemoveTask = (id) => {
     const updatedTask = addTask.filter((task) => task.id !== id);
     setAddTask(updatedTask);
   };
 
-  //   console.log("this is addTask", addTask)
   return (
     <div>
       <input
         type='text'
         value={task}
         name='text'
-        onChange={handelTask}
+        onChange={handleTaskChange}
         placeholder='Add Task'
       />
       <button onClick={submitTask}>Add Task</button>
       <div>
-        {addTask.map((task) => {
-          return (
-            <>
-              <input
-                type='checkbox'
-                value={taskCompleted}
-                onChange={handelTaskCompleted}
-              />
-              <li key={task.id}>{task}</li>
-              <div>
-                <button onClick={() => handelRemoveTask(task.id)}>
-                  Remove Task
-                </button>
-              </div>
-            </>
-          );
-        })}
+        {addTask.map((task) => (
+          <div key={task.id}>
+            <input
+              type='checkbox'
+              value={taskCompleted}
+              onChange={handleTaskCompleted}
+            />
+            <li>{task.task}</li>
+            <div>
+              <button onClick={() => handleRemoveTask(task.id)}>
+                Remove Task
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
