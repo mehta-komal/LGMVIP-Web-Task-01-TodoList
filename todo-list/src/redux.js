@@ -1,23 +1,29 @@
-import configureStore, { createSlice } from '@reduxjs/toolkit'
-
+import configureStore, { createSlice } from '@reduxjs/toolkit';
 
 //Create an state
-const initialTask={
-    addTask:[],
-}
+const initialTask = {
+  addTask: [],
+};
 
 // Created Reducer
 
-createSlice({
-    name:"todoapplication",
-    initialState:initialTask,
-    reducers:{
-        addTheTask:(state, action) =>{
-            state.addTask.push(action.payload)
-        }
-    }
-})
+const todoSlice = createSlice({
+  name: 'todoapplication',
+  initialState: initialTask,
+  reducers: {
+    addTheTask: (state, action) => {
+      state.addTask.push(action.payload);
+    },
+  },
+});
+export const addTheTask = todoSlice.actions.addTheTask;
+const todoReducer = todoSlice.reducer;
+const combineReducer = {
+  todo: todoReducer,
+};
 
 //Created an store
 
-const myTodoStore = configureStore()
+export const myTodoStore = configureStore({
+  reducer: combineReducer,
+});
