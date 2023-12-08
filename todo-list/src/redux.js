@@ -14,11 +14,12 @@ const todoSlice = createSlice({
   initialState: initialTask,
   reducers: {
     addTheTask: (state, action) => {
-      if (action.payload == '') {
+      if (action.payload !== '') {
         state.addTask.push(action.payload);
       } else {
         alert('please add task');
       }
+      
     },
     completeTask: (state, action) => {
       state.completed = action.payload;

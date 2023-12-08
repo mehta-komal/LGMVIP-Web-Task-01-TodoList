@@ -17,10 +17,21 @@ const Todolist = () => {
   };
 
   const submitTask = () => {
-    dispatch(addTheTask({ task, id: tasksData.length }));
+    if (task.trim().length === 0) {
+      alert('Enter a task before adding');
+      setTask('');
+      return;
+    }
+
+    dispatch(
+      addTheTask({
+        task,
+        id: tasksData.length,
+      })
+    );
+
     setTask('');
   };
-
   const handleTaskCompleted = () => {
     dispatch(completeTask(true));
   };
@@ -32,7 +43,6 @@ const Todolist = () => {
 
   return (
     <div className='main-div'>
-    
       <div className='second-div'>
         <input
           className='addtask'
