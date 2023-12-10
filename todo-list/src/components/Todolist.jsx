@@ -4,12 +4,11 @@ import { addTheTask, myTodoStore, completeTask, removeTask } from '../redux';
 
 const Todolist = () => {
   const [task, setTask] = useState('');
-  // const [addTask, setAddTask] = useState([]);
+
   const dispatch = useDispatch();
   const tasksData = useSelector(function (output) {
     return output.todo.addTask;
   });
-  // const [taskCompleted, setTaskCompleted] = useState(false);
 
   const handleTaskChange = (e) => {
     setTask(e.target.value);
@@ -38,7 +37,6 @@ const Todolist = () => {
 
   const handleRemoveTask = (id) => {
     dispatch(removeTask(id));
-    // setAddTask(updatedTask);
   };
 
   return (
