@@ -59,7 +59,7 @@ const Todolist = () => {
           <div className='list-div' key={task.id}>
             <input type='checkbox' onChange={handleTaskCompleted} />
             <li>{task.task}</li>
-            <div>
+            <div className='remove-btn'>
               <svg
                 onClick={() => handleRemoveTask(task.id)}
                 xmlns='http://www.w3.org/2000/svg'
