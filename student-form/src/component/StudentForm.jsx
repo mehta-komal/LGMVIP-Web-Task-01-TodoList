@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const StudentForm = () => {
   const [studentData, setStudentData] = useState({
@@ -29,7 +29,6 @@ const StudentForm = () => {
     setSubmitted(true);
     // handelClear();
     localStorage.setItem('studentFormData', JSON.stringify(studentData));
-    
   };
   const handleCheckboxChange = (e) => {
     const { name, checked } = e.target;
@@ -72,7 +71,6 @@ const StudentForm = () => {
   };
   const handelClear = () => {
     setStudentData({
-      
       name: '',
       email: '',
       website: '',
@@ -83,6 +81,7 @@ const StudentForm = () => {
         html: false,
       },
       image: null,
+      
     });
   };
 
@@ -136,7 +135,7 @@ const StudentForm = () => {
             name='gender'
             value='male'
             checked={studentData.gender === 'male'}
-            onChange={ handleRadioChange }
+            onChange={handleRadioChange}
           />
           <label htmlFor='male'>Male</label>
           <br />
@@ -145,7 +144,7 @@ const StudentForm = () => {
             name='gender'
             value='female'
             checked={studentData.gender === 'female'}
-            onChange={ handleRadioChange }
+            onChange={handleRadioChange}
           />
           <label htmlFor='female'>Female</label>
           <br />
@@ -192,22 +191,22 @@ const StudentForm = () => {
         {submitted && (
           <div className='data-container'>
             <div className='data-img'>
-            <img src={studentData.image} />
+              <img src={studentData.image} />
             </div>
             <div>
-            <h2>{studentData.name} </h2>
-            <span>{studentData.email}</span>
-            <br />
-            <span>{studentData.website}</span>
-            <br />
-            <span>{studentData.gender}</span>
-            <br />
-            <h4>Skills:</h4>
-            <ul>
-              {Object.entries(studentData.skills).map(
-                ([skill, value]) => value && <li key={skill}>{skill}</li>
-              )}
-            </ul>
+              <h2>{studentData.name} </h2>
+              <span>{studentData.email}</span>
+              <br />
+              <span>{studentData.website}</span>
+              <br />
+              <span>{studentData.gender}</span>
+              <br />
+              <h4>Skills:</h4>
+              <ul>
+                {Object.entries(studentData.skills).map(
+                  ([skill, value]) => value && <li key={skill}>{skill}</li>
+                )}
+              </ul>
             </div>
           </div>
         )}
