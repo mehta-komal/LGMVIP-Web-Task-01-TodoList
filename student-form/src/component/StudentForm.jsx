@@ -13,23 +13,60 @@ const StudentForm = () => {
     },
     image: null,
   });
+
+  const [submitted, setSubmitted] = useState(false);
+  const [allStudentData, setAllStudentData] = useState([]);
+
   useEffect(() => {
-    // Load data from local storage when the component mounts
-    const storedData = JSON.parse(localStorage.getItem('studentFormData'));
+    const storedData = JSON.parse(localStorage.getItem('allStudentData'));
     if (storedData) {
-      setStudentData(storedData);
+      setAllStudentData(storedData);
     }
   }, []);
-  // const [data, setData] = useState([])
-  const [submitted, setSubmitted] = useState(false);
+
   const handelSubmit = (e) => {
     e.preventDefault();
-    // setData(studentData);
-    console.log(studentData);
     setSubmitted(true);
-    // handelClear();
-    localStorage.setItem('studentFormData', JSON.stringify(studentData));
+
+    
+    const updatedAllStudentData = [...allStudentData, studentData];
+    setAllStudentData(updatedAllStudentData);
+
+   
+    localStorage.setItem(
+      'allStudentData',
+      JSON.stringify(updatedAllStudentData)
+    );
+
+    
+    setStudentData({
+      name: '',
+      email: '',
+      website: '',
+      gender: '',
+      skills: {
+        react: false,
+        nodejs: false,
+        html: false,
+      },
+      image: null,
+    });
   };
+  const handelClear = () => {
+    setStudentData({
+      name: '',
+      email: '',
+      website: '',
+      gender: '',
+      skills: {
+        react: false,
+        nodejs: false,
+        html: false,
+      },
+      image: null,
+    });
+  };
+
   const handleCheckboxChange = (e) => {
     const { name, checked } = e.target;
     setStudentData({
@@ -40,6 +77,7 @@ const StudentForm = () => {
       },
     });
   };
+
   const handleImageChange = (e) => {
     const imageFile = e.target.files[0];
 
@@ -56,6 +94,7 @@ const StudentForm = () => {
       reader.readAsDataURL(imageFile);
     }
   };
+
   const handelStudent = (e) => {
     e.preventDefault();
     setStudentData({
@@ -63,25 +102,11 @@ const StudentForm = () => {
       [e.target.name]: e.target.value,
     });
   };
+
   const handleRadioChange = (e) => {
     setStudentData({
       ...studentData,
       [e.target.name]: e.target.value,
-    });
-  };
-  const handelClear = () => {
-    setStudentData({
-      name: '',
-      email: '',
-      website: '',
-      gender: '',
-      skills: {
-        react: false,
-        nodejs: false,
-        html: false,
-      },
-      image: null,
-      
     });
   };
 
@@ -123,6 +148,7 @@ const StudentForm = () => {
               name='website'
               value={studentData.website}
               onChange={handelStudent}
+              required
             />
           </label>
           <label className='file-input'>
@@ -187,27 +213,45 @@ const StudentForm = () => {
             </button>
           </div>
         </form>
-
-        {submitted && (
-          <div className='data-container'>
-            <div className='data-img'>
-              <img src={studentData.image} />
-            </div>
-            <div>
-              <h2>{studentData.name} </h2>
-              <span>{studentData.email}</span>
-              <br />
-              <span>{studentData.website}</span>
-              <br />
-              <span>{studentData.gender}</span>
-              <br />
-              <h4>Skills:</h4>
-              <ul>
-                {Object.entries(studentData.skills).map(
-                  ([skill, value]) => value && <li key={skill}>{skill}</li>
-                )}
-              </ul>
-            </div>
+        {/* <hr /> */}
+   
+        {allStudentData.length > 0 && (
+          <div className='all-data-container'>
+            {allStudentData.map((student, index) => (
+              <div key={index} className='data-container'>
+                <div className='data-img'>
+                  <img src={student.image} alt='student' />
+                </div>
+                <div className='data-details'>
+                  <h2>
+                    Name: <i>{student.name}</i>{' '}
+                  </h2>
+                  <span>
+                    <b>Email:</b> {student.email}
+                  </span>
+                  <br />
+                  <span>
+                    <b>Webiste:</b> {student.website}
+                  </span>
+                  <br />
+                  <span>
+                    <b>Gender:</b> {student.gender}
+                  </span>
+                  <br />
+                  <div className='list-container'>
+                    <span>
+                      <b>Skills:</b>
+                    </span>
+                    <ul>
+                      {Object.entries(student.skills).map(
+                        ([skill, value]) =>
+                          value && <li key={skill}>{skill}</li>
+                      )}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         )}
       </div>
