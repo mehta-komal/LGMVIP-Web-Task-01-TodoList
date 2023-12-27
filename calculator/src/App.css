@@ -1,0 +1,40 @@
+.calci{
+/* From https://css.glass */
+background: rgba(255, 255, 255, 0.28);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px);
+border: 1px solid rgba(255, 255, 255, 1);
+    width: 320px;
+    margin: 30px auto;
+}
+h1{
+    text-align: center;
+    font-size: 50px;
+}
+#answer{
+    background-color: #e2e2e2;
+    padding: 10px;
+    font-size: 35px;
+    width: 295px;
+    height: 45px;
+    text-align: right;
+    border: 3px solid black;
+    border-radius: 16px;
+    color: black;
+
+}
+.btn{
+    background: #333;
+    height: 80px;
+    width: 80px;
+    color: white;
+    font-size: 30px;
+    border: 1px solid black;
+    border-radius: 16px;
+}
+
+.btn1{
+    width: 160px;
+}
