@@ -12,13 +12,17 @@ const Calci = () => {
             } else if (value === 'AC') {
             
               setResult('');
-            } else {
+              
+            } else if (value === 'DEL') {
+                setResult((prevInput) => prevInput.slice(0, -1));
+            }
+             else {
               setResult((prevInput) => prevInput + value);
             }
           };
 
   return (
-    <div>
+    <div >
         <h1>Calculator</h1>
     <div className='calci'>
         
@@ -40,7 +44,8 @@ const Calci = () => {
       <button onClick={()=> handleClick('/')} className='btn'>/</button>
       <button onClick={()=> handleClick('%')} className='btn'>%</button>
       <button onClick={()=> handleClick('AC')} className='btn btn1'>AC</button>
-      <button onClick={()=> handleClick('=')} className='btn btn1' >=</button>
+      <button onClick={()=> handleClick('DEL')} className='btn btn1'>Del</button>
+      <button onClick={()=> handleClick('=')} className='btn btn1'id='btn2' >=</button>
       
       
     </div>
